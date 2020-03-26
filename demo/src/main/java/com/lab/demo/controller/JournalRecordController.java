@@ -1,6 +1,7 @@
-package com.example.demo.controller;
-import com.example.demo.dao.JournalRecordJdbc;
-import com.example.demo.model.JournalRecord;
+package com.lab.demo.controller;
+
+import com.lab.demo.dao.JournalRecordJdbc;
+import com.lab.demo.model.JournalRecord;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

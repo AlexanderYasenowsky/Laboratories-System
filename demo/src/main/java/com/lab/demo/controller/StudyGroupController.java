@@ -1,14 +1,16 @@
-package com.example.demo.controller;
+package com.lab.demo.controller;
 
-import com.example.demo.dao.StudyGroupJdbc;
-import com.example.demo.model.StudyGroup;
+import com.lab.demo.dao.StudyGroupJdbc;
+import com.lab.demo.model.StudyGroup;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 public class StudyGroupController
 {
     private final StudyGroupJdbc studyGroupJdbc;
+
     public StudyGroupController(StudyGroupJdbc studyGroupJdbc)
     {
         this.studyGroupJdbc = studyGroupJdbc;
@@ -43,4 +45,5 @@ public class StudyGroupController
     {
         return studyGroupJdbc.delete(id);
     }
+
 }

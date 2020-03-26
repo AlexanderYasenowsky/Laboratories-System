@@ -1,6 +1,7 @@
-package com.example.demo.dao;
+package com.lab.demo.dao;
 
-import com.example.demo.model.StudyGroup;
+import com.lab.demo.model.StudyGroup;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -21,30 +22,30 @@ public class StudyGroupJdbc
 
     public StudyGroup get(int id)
     {
-        return jdbcTemplate.queryForObject("SELECT * FROM \"study_group\" WHERE \"id\" = ?", this::mapStudyGroup, id);
+        return jdbcTemplate.queryForObject("SELECT * FROM study_group WHERE id = ?", this::mapStudyGroup, id);
     }
 
     public List<StudyGroup> getAll()
     {
-        return jdbcTemplate.queryForObject("SELECT * FROM \"study_group\"", this::mapAllStudyGroups);
+        return jdbcTemplate.queryForObject("SELECT * FROM study_group", this::mapAllStudyGroups);
     }
 
-    public int add(StudyGroup sG)
+    public int add(@NotNull StudyGroup sG)
     {
-        return jdbcTemplate.update("INSERT INTO \"study_group\" (\"name\") VALUES (?)", sG.getName());
+        return jdbcTemplate.update("INSERT INTO study_group (name) VALUES (?)", sG.getName());
     }
 
-    public int update(StudyGroup sG)
+    public int update(@NotNull StudyGroup sG)
     {
-        return jdbcTemplate.update("UPDATE \"study_group\" SET \"name\" = ? WHERE \"id\" = ?", sG.getName(), sG.getId());
+        return jdbcTemplate.update("UPDATE study_group SET name = ? WHERE id = ?", sG.getName(), sG.getId());
     }
 
     public int delete(int id)
     {
-        return jdbcTemplate.update("DELETE FROM \"study_group\" WHERE \"id\" = ?", id);
+        return jdbcTemplate.update("DELETE FROM study_group WHERE id = ?", id);
     }
 
-    private StudyGroup mapStudyGroup(ResultSet rs, int i) throws SQLException
+    private StudyGroup mapStudyGroup(@NotNull ResultSet rs, int i) throws SQLException
     {
         return new StudyGroup(
                 rs.getInt("id"),
@@ -52,7 +53,7 @@ public class StudyGroupJdbc
         );
     }
 
-    private List<StudyGroup> mapAllStudyGroups(ResultSet rs, int i) throws SQLException
+    private List<StudyGroup> mapAllStudyGroups(@NotNull ResultSet rs, int i) throws SQLException
     {
         List<StudyGroup> groupList = new ArrayList<>();
 

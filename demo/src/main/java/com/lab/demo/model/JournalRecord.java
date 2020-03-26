@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.lab.demo.model;
 
 public class JournalRecord
 {
@@ -82,5 +82,4 @@ public class JournalRecord
     {
         this.markId = markId;
     }
-
 }

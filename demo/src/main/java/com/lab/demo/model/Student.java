@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.lab.demo.model;
 
 public class Student
 {

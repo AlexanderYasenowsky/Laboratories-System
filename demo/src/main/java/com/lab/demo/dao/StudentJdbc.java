@@ -1,10 +1,11 @@
-package com.example.demo.dao;
+package com.lab.demo.dao;
 
-import com.example.demo.model.Student;
+import com.lab.demo.model.Student;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import javax.validation.constraints.NotNull;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,27 +23,27 @@ public class StudentJdbc
 
     public Student get(int id)
     {
-        return jdbcTemplate.queryForObject("SELECT * FROM \"student\" WHERE \"id\" = ?", this::mapStudent, id);
+        return jdbcTemplate.queryForObject("SELECT * FROM student WHERE id = ?", this::mapStudent, id);
     }
 
     public List<Student> getAll()
     {
-        return jdbcTemplate.queryForObject("SELECT * FROM \"student\"", this::mapAllStudents);
+        return jdbcTemplate.queryForObject("SELECT * FROM student", this::mapAllStudents);
     }
 
     public List<Student> getAllByGroup(int id)
     {
-        return jdbcTemplate.queryForObject("SELECT * FROM \"student\" WHERE \"study_group_id\" = ?", this::mapAllStudents, id);
+        return jdbcTemplate.queryForObject("SELECT * FROM student WHERE study_group_id = ?", this::mapAllStudents, id);
     }
 
-    public int add(Student stud)
+    public int add(@NotNull Student stud)
     {
-        return jdbcTemplate.update("INSERT INTO \"student\" (\"surname\", \"name\", \"second_name\", \"study_group_id\") VALUES (?, ?, ?, ?)", stud.getSurName(), stud.getName(), stud.getSecondName(), stud.getStudyGroupId());
+        return jdbcTemplate.update("INSERT INTO student (surname, name, second_name, study_group_id) VALUES (?, ?, ?, ?)", stud.getSurName(), stud.getName(), stud.getSecondName(), stud.getStudyGroupId());
     }
 
-    public int update(Student stud)
+    public int update(@NotNull Student stud)
     {
-        StringBuilder sqlRequest = new StringBuilder("UPDATE \"student\" SET ");
+        StringBuilder sqlRequest = new StringBuilder("UPDATE student SET ");
 
         if (!StringUtils.isEmpty(stud.getSurName()))
             sqlRequest.append("surname = '").append(stud.getSurName()).append("', ");
@@ -59,10 +60,10 @@ public class StudentJdbc
 
     public int delete(int id)
     {
-        return jdbcTemplate.update("DELETE FROM \"student\" WHERE \"id\" = ?", id);
+        return jdbcTemplate.update("DELETE FROM student WHERE id = ?", id);
     }
 
-    private Student mapStudent(ResultSet rs, int i) throws SQLException
+    private Student mapStudent(@NotNull ResultSet rs, int i) throws SQLException
     {
         return new Student(
                 rs.getInt("id"),
@@ -73,7 +74,7 @@ public class StudentJdbc
         );
     }
 
-    private List<Student> mapAllStudents(ResultSet rs, int i) throws SQLException
+    private List<Student> mapAllStudents(@NotNull ResultSet rs, int i) throws SQLException
     {
         List<Student> studentList = new ArrayList<>();
 

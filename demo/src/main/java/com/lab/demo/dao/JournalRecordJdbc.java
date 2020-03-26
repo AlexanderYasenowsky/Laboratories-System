@@ -1,5 +1,7 @@
-package com.example.demo.dao;
-import com.example.demo.model.JournalRecord;
+package com.lab.demo.dao;
+
+import com.lab.demo.model.JournalRecord;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -20,33 +22,33 @@ public class JournalRecordJdbc
 
     public JournalRecord get(int id)
     {
-        return jdbcTemplate.queryForObject("SELECT * FROM \"journal\" WHERE \"id\" = ?", this::mapJournalRecord, id);
+        return jdbcTemplate.queryForObject("SELECT * FROM journal WHERE id = ?", this::mapJournalRecord, id);
     }
 
     public List<JournalRecord> getAll()
     {
-        return jdbcTemplate.queryForObject("SELECT * FROM \"journal\"", this::mapAllJournalRecords);
+        return jdbcTemplate.queryForObject("SELECT * FROM journal", this::mapAllJournalRecords);
     }
 
     public List<JournalRecord> getAllByStudent(int id)
     {
-        return jdbcTemplate.queryForObject("SELECT * FROM \"journal\" WHERE \"student_id\" = ?", this::mapAllJournalRecords, id);
+        return jdbcTemplate.queryForObject("SELECT * FROM journal WHERE student_id = ?", this::mapAllJournalRecords, id);
     }
 
     public List<JournalRecord> getAllByStudyPlan(int id)
     {
-        return jdbcTemplate.queryForObject("SELECT * FROM \"journal\" WHERE \"study_plan_id\" = ?", this::mapAllJournalRecords, id);
+        return jdbcTemplate.queryForObject("SELECT * FROM journal WHERE study_plan_id = ?", this::mapAllJournalRecords, id);
     }
 
-    public int addJournalRecord(JournalRecord jR)
+    public int addJournalRecord(@NotNull JournalRecord jR)
     {
-        return jdbcTemplate.update("INSERT INTO \"journal\" (\"student_id\", \"study_plan_id\", \"in_time\", \"count\", \"mark_id\") VALUES (?, ?, ?, ?, ?)", jR.getStudentId(),
+        return jdbcTemplate.update("INSERT INTO journal (student_id, study_plan_id, in_time, count, mark_id) VALUES (?, ?, ?, ?, ?)", jR.getStudentId(),
                 jR.getStudyPlanId(), jR.isInTime(), jR.getCount(), jR.getMarkId());
     }
 
-    public int updateJournalRecord(JournalRecord jR)
+    public int updateJournalRecord(@NotNull JournalRecord jR)
     {
-        StringBuilder sqlQuery = new StringBuilder("UPDATE \"journal\" SET ");
+        StringBuilder sqlQuery = new StringBuilder("UPDATE journal SET ");
 
         if (jR.getStudentId() != null) sqlQuery.append("student_id = '").append(jR.getStudentId()).append("', ");
         if (jR.getStudyPlanId() != null) sqlQuery.append("study_plan_id = '").append(jR.getStudyPlanId()).append("', ");
@@ -61,10 +63,10 @@ public class JournalRecordJdbc
 
     public int deleteJournalRecord(int id)
     {
-        return jdbcTemplate.update("DELETE FROM \"journal\" WHERE \"id\" = ?", id);
+        return jdbcTemplate.update("DELETE FROM journal WHERE id = ?", id);
     }
 
-    private JournalRecord mapJournalRecord(ResultSet rs, int i) throws SQLException
+    private JournalRecord mapJournalRecord(@NotNull ResultSet rs, int i) throws SQLException
     {
         return new JournalRecord(
                 rs.getInt("id"),
@@ -76,7 +78,7 @@ public class JournalRecordJdbc
         );
     }
 
-    private List<JournalRecord> mapAllJournalRecords(ResultSet rs, int i) throws SQLException
+    private List<JournalRecord> mapAllJournalRecords(@NotNull ResultSet rs, int i) throws SQLException
     {
         List<JournalRecord> journalRecordList = new ArrayList<>();
 

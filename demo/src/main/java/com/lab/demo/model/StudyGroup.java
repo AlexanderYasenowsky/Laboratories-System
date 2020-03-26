@@ -1,5 +1,4 @@
-package com.example.demo.model;
-
+package com.lab.demo.model;
 
 public class StudyGroup
 {
@@ -10,6 +9,10 @@ public class StudyGroup
     {
         this.id = id;
         this.name = name;
+    }
+
+    public StudyGroup()
+    {
     }
 
     public int getId()
