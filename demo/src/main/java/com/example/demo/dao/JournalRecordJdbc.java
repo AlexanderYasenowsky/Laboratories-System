@@ -1,7 +1,6 @@
-package com.lab.demo.dao;
+package com.example.demo.dao;
 
-import com.lab.demo.model.JournalRecord;
-import org.jetbrains.annotations.NotNull;
+import com.example.demo.model.JournalRecord;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -40,13 +39,13 @@ public class JournalRecordJdbc
         return jdbcTemplate.queryForObject("SELECT * FROM journal WHERE study_plan_id = ?", this::mapAllJournalRecords, id);
     }
 
-    public int addJournalRecord(@NotNull JournalRecord jR)
+    public int addJournalRecord(JournalRecord jR)
     {
         return jdbcTemplate.update("INSERT INTO journal (student_id, study_plan_id, in_time, count, mark_id) VALUES (?, ?, ?, ?, ?)", jR.getStudentId(),
                 jR.getStudyPlanId(), jR.isInTime(), jR.getCount(), jR.getMarkId());
     }
 
-    public int updateJournalRecord(@NotNull JournalRecord jR)
+    public int updateJournalRecord(JournalRecord jR)
     {
         StringBuilder sqlQuery = new StringBuilder("UPDATE journal SET ");
 
@@ -66,7 +65,7 @@ public class JournalRecordJdbc
         return jdbcTemplate.update("DELETE FROM journal WHERE id = ?", id);
     }
 
-    private JournalRecord mapJournalRecord(@NotNull ResultSet rs, int i) throws SQLException
+    private JournalRecord mapJournalRecord(ResultSet rs, int i) throws SQLException
     {
         return new JournalRecord(
                 rs.getInt("id"),
@@ -78,7 +77,7 @@ public class JournalRecordJdbc
         );
     }
 
-    private List<JournalRecord> mapAllJournalRecords(@NotNull ResultSet rs, int i) throws SQLException
+    private List<JournalRecord> mapAllJournalRecords(ResultSet rs, int i) throws SQLException
     {
         List<JournalRecord> journalRecordList = new ArrayList<>();
 

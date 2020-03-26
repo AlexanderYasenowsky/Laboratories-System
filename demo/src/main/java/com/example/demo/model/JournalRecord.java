@@ -1,4 +1,4 @@
-package com.lab.demo.model;
+package com.example.demo.model;
 
 public class JournalRecord
 {

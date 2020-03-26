@@ -1,7 +1,6 @@
-package com.lab.demo.dao;
+package com.example.demo.dao;
 
-import com.lab.demo.model.StudyGroup;
-import org.jetbrains.annotations.NotNull;
+import com.example.demo.model.StudyGroup;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -30,12 +29,12 @@ public class StudyGroupJdbc
         return jdbcTemplate.queryForObject("SELECT * FROM study_group", this::mapAllStudyGroups);
     }
 
-    public int add(@NotNull StudyGroup sG)
+    public int add( StudyGroup sG)
     {
         return jdbcTemplate.update("INSERT INTO study_group (name) VALUES (?)", sG.getName());
     }
 
-    public int update(@NotNull StudyGroup sG)
+    public int update( StudyGroup sG)
     {
         return jdbcTemplate.update("UPDATE study_group SET name = ? WHERE id = ?", sG.getName(), sG.getId());
     }
@@ -45,7 +44,7 @@ public class StudyGroupJdbc
         return jdbcTemplate.update("DELETE FROM study_group WHERE id = ?", id);
     }
 
-    private StudyGroup mapStudyGroup(@NotNull ResultSet rs, int i) throws SQLException
+    private StudyGroup mapStudyGroup( ResultSet rs, int i) throws SQLException
     {
         return new StudyGroup(
                 rs.getInt("id"),
@@ -53,7 +52,7 @@ public class StudyGroupJdbc
         );
     }
 
-    private List<StudyGroup> mapAllStudyGroups(@NotNull ResultSet rs, int i) throws SQLException
+    private List<StudyGroup> mapAllStudyGroups( ResultSet rs, int i) throws SQLException
     {
         List<StudyGroup> groupList = new ArrayList<>();
 

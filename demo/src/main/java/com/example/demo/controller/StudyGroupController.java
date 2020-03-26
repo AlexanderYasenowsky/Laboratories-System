@@ -1,7 +1,7 @@
-package com.lab.demo.controller;
+package com.example.demo.controller;
 
-import com.lab.demo.dao.StudyGroupJdbc;
-import com.lab.demo.model.StudyGroup;
+import com.example.demo.dao.StudyGroupJdbc;
+import com.example.demo.model.StudyGroup;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
