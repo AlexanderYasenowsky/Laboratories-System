@@ -1,6 +1,6 @@
-package com.example.demo.dao;
+package com.lab.demo.dao;
 
-import com.example.demo.model.Mark;
+import com.lab.demo.model.Mark;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
